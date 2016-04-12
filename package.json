@@ -8,7 +8,8 @@
     "flow": "flow check",
     "build": "rollup -c rollup.es.config.js && rollup -c rollup.umd.config.js",
     "test": "npm run flow && npm run bootstrap",
-    "bootstrap": "babel src/index.js --no-babelrc --plugins syntax-flow,transform-flow-strip-types,transform-es2015-parameters -o dist/babelrc-rollup.m.js && rollup -c rollup.es.config.js && npm run build"
+    "bootstrap": "babel src/index.js --no-babelrc --plugins syntax-flow,transform-flow-strip-types,transform-es2015-parameters -o dist/babelrc-rollup.m.js && rollup -c rollup.es.config.js && npm run build",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",
