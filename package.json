@@ -37,5 +37,8 @@
     "flow-bin": "^0.22.1",
     "rollup": "^0.25.8",
     "rollup-plugin-babel": "^2.4.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
