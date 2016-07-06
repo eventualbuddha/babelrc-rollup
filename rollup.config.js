@@ -1,18 +1,20 @@
 import babel from 'rollup-plugin-babel';
 import babelrc from './dist/babelrc-rollup.mjs';
 
+let pkg = require('./package.json');
+
 export default {
   entry: 'src/index.js',
   plugins: [babel(babelrc())],
   external: ['fs'],
   targets: [
     {
-      dest: 'dist/babelrc-rollup.mjs',
+      dest: pkg['jsnext:main'],
       exports: 'named',
-      format: 'es6'
+      format: 'es'
     },
     {
-      dest: 'dist/babelrc-rollup.js',
+      dest: pkg['main'],
       exports: 'named',
       format: 'cjs'
     }
