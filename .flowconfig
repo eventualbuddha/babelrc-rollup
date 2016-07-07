@@ -1,11 +1,6 @@
 [ignore]
-.*/rollup\.config.*\.js
-.*/dist/.*
-.*/test/.*
-.*/node_modules/.*
 
 [include]
-./src
 
 [libs]
 
