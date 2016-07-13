@@ -1,6 +1,7 @@
 /* @flow */
 
 import { readFileSync } from 'fs';
+import { sync as resolve } from 'resolve';
 
 function startsWith(string: string, prefix: string): boolean {
   return string.lastIndexOf(prefix, 0) === 0;
@@ -48,9 +49,7 @@ export function configWithoutModules(config: BabelConfig): BabelConfig {
     if (Object.prototype.hasOwnProperty.call(config, key)) {
       if (key === 'presets' && config.presets) {
         // Replace the es2015 preset with the es2015-rollup preset.
-        result.presets = config.presets.map(
-          preset => preset === 'es2015' ? 'es2015-rollup' : preset
-        );
+        result.presets = config.presets.map(mapPreset);
       } else if (key === 'plugins' && config.plugins) {
         // Remove any explicit module plugins, e.g. es2015-modules-commonjs.
         result.plugins = config.plugins.filter(
@@ -66,4 +65,14 @@ export function configWithoutModules(config: BabelConfig): BabelConfig {
   result.babelrc = false;
 
   return result;
+}
+
+function mapPreset(preset: string): string {
+  try {
+    // this will throw if it can't resolve it
+    resolve(`babel-preset-${preset}-rollup`);
+    return `${preset}-rollup`;
+  } catch (err) {
+    return preset;
+  }
 }

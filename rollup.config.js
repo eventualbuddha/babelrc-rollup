@@ -6,7 +6,7 @@ let pkg = require('./package.json');
 export default {
   entry: 'src/index.js',
   plugins: [babel(babelrc())],
-  external: ['fs'],
+  external: Object.keys(pkg['dependencies']).concat(['fs']),
   targets: [
     {
       dest: pkg['jsnext:main'],

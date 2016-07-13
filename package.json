@@ -42,5 +42,8 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "resolve": "^1.1.7"
   }
 }
