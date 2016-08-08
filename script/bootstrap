@@ -9,8 +9,6 @@ mkdir -p dist
 # use babel directly to create the ES module version
 babel \
   src/index.js \
-  --no-babelrc \
-  --plugins syntax-flow,transform-flow-strip-types,transform-es2015-parameters \
   -o dist/babelrc-rollup.mjs
 
 # test our rollup build with the babel-built version
