@@ -1,5 +1,7 @@
 # babelrc-rollup
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/eventualbuddha/babelrc-rollup.svg)](https://greenkeeper.io/)
+
 Builds a babel configuration for rollup-plugin-babel by reading .babelrc.
 
 ## Install
