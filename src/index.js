@@ -7,6 +7,10 @@ function startsWith(string: string, prefix: string): boolean {
   return string.lastIndexOf(prefix, 0) === 0;
 }
 
+function includes<T>(array: Array<T>, value: T): boolean {
+  return array.indexOf(value) > -1;
+}
+
 type Preset = any;
 
 type BabelConfig = {
@@ -46,6 +50,7 @@ type Options = {
   findRollupPresets?: boolean;
   addModuleOptions?: boolean;
   addExternalHelpersPlugin?: boolean;
+  presetsToAddModuleOptions?: Array<string>,
   resolve?: (path: string) => string;
 };
 
@@ -54,6 +59,7 @@ const DEFAULT_OPTIONS = {
   findRollupPresets: false,
   addModuleOptions: true,
   addExternalHelpersPlugin: true,
+  presetsToAddModuleOptions: ['env', 'es2015'],
   resolve
 };
 
@@ -111,9 +117,14 @@ function mapPreset(preset: any, options: Options): any {
     return preset;
   }
 
+  const {presetsToAddModuleOptions} = options;
+  if (!presetsToAddModuleOptions) {
+    throw new Error('Option "presetsToAddModuleOptions" should have default option');
+  }
+
   if (options.findRollupPresets && hasRollupVersionOfPreset(info.name, options.resolve || resolve)) {
     return [`${info.name}-rollup`, info.options];
-  } else if (options.addModuleOptions) {
+  } else if (options.addModuleOptions && includes(presetsToAddModuleOptions, info.name)) {
     return [info.name, { ...info.options, modules: false }];
   } else {
     return preset;
