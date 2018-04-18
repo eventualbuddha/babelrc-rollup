@@ -70,7 +70,7 @@ describe('babelrc-rollup', () => {
       }).presets,
       [
         ['foo-rollup', {}],
-        ['bar', { modules: false }]
+        'bar'
       ]
     )
   });
@@ -96,6 +96,35 @@ describe('babelrc-rollup', () => {
         addExternalHelpersPlugin: false
       }).plugins,
       []
+    );
+  });
+
+  it('adds modules: false to "env" and "es2015" preset by default', () => {
+    deepEqual(
+      babelrc({
+        config: {
+          presets: ['env', 'es2015', 'flow']
+        }
+      }).presets,
+      [
+        ['env', {modules: false}],
+        ['es2015', {modules: false}],
+        'flow'
+      ]
+    );
+  });
+
+  it('adds modules: false to presets in `presetsToAddModuleOptions` option', () => {
+    deepEqual(
+      babelrc({
+        config: {
+          presets: ['foo']
+        },
+        presetsToAddModuleOptions: ['foo']
+      }).presets,
+      [
+        ['foo', {modules: false}]
+      ]
     );
   });
 });
